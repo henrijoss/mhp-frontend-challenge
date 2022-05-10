@@ -1,6 +1,7 @@
 {
   "name": "mhp-frontend-challenge",
   "version": "0.1.0",
+  "description": "This project is part of the hiring process of mhp. It's a submission to the mhp frontend challenge",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

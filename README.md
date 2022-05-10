@@ -1,5 +1,11 @@
 # mhp-frontend-challenge
 
+This is my submission for the MHP Frontend challenge. 
+
+Applicant: Henri Joss
+
+The challenge description can be found [here](https://github.com/MHP-A-Porsche-Company/coding-challenges/tree/master/Web).
+
 ## Project setup
 ```
 npm install
