@@ -1,9 +1,22 @@
 <template>
-  <div v-if="error.state">{{ error.message }}</div>
-  <article v-else class="overview-houses">
-    <ListHouseItem :houses="houses" />
-    <BasePagination :currentPage="currentPage" @change-page="fetchHouses" />
-  </article>
+  <div class="container-bg-img">
+    <article class="container houses-container">
+      <div v-if="error.state">{{ error.message }}</div>
+      <section v-else>
+        <h1>
+          <hr />
+          All Houses
+          <hr />
+        </h1>
+        <ListHouseItem :houses="storeGoT.houses" />
+        <BasePagination
+          :currentPage="storeGoT.currentPage"
+          @change-page="fetchHouses"
+          class="houses-pagination"
+        />
+      </section>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -24,8 +37,6 @@ export default {
     return {
       storeGoT,
       loading: true,
-      houses: [],
-      currentPage: 1,
       error: {
         state: false,
         message: "",
@@ -33,15 +44,16 @@ export default {
     };
   },
   async created() {
-    await this.fetchHouses(this.currentPage);
+    await this.fetchHouses(this.storeGoT.currentPage);
   },
   methods: {
     async fetchHouses(page) {
       try {
         this.loading = true;
-        this.houses = await fetchHousesAPI(page);
-        this.currentPage = page;
+        await fetchHousesAPI(page);
+        this.storeGoT.currentPage = page;
         this.loading = false;
+        console.log(this.storeGoT.houses);
       } catch (error) {
         this.loading = false;
         this.error.state = true;
