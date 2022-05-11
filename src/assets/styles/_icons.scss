@@ -1,0 +1,28 @@
+.icon {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  mask-size: contain;
+}
+
+.icon-light {
+  background-color: $primary-text-color;
+}
+
+.icon-arrow-left {
+  mask-image: url("~@/assets/icons/arrow_left.svg");
+}
+
+.icon-arrow-right {
+  mask-image: url("~@/assets/icons/arrow_left.svg");
+  transform: rotate(180deg);
+}
+
+.icon-double-arrow-right {
+  mask-image: url("~@/assets/icons/double_arrow_left.svg");
+  transform: rotate(180deg);
+}
+
+.icon-double-arrow-left {
+  mask-image: url("~@/assets/icons/double_arrow_left.svg");
+}
