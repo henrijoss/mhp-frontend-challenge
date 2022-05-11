@@ -1,7 +1,12 @@
 import { storeGoT } from "@/store/store.js";
 
 const GOT_API_URL = "https://www.anapioficeandfire.com/api";
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 9;
+const MAX_PAGE_SIZE = 50; // defined by the API
+
+const fetchAllHouses = async (pageSize = MAX_PAGE_SIZE) => {
+  console.log(pageSize);
+};
 
 /**
  * Fetch houses with given page and pageSize
@@ -15,7 +20,8 @@ const fetchHousesAPI = async (page = 1, pageSize = DEFAULT_PAGE_SIZE) => {
     `${GOT_API_URL}/houses?page=${page}&pageSize=${pageSize}`
   );
   setPageAmountOnPageSizeChange(response.headers, pageSize);
-  return await response.json();
+  let houses = await response.json();
+  storeGoT.updateHouses(houses);
 };
 
 /**
@@ -46,4 +52,10 @@ const parsePageAmount = (headers) => {
     .match(/page=(\d*)/)[1];
 };
 
-export { fetchHousesAPI };
+const fetchHouseAPI = async (id) => {
+  console.log("test");
+  let response = await fetch(`${GOT_API_URL}/houses/${id}`);
+  return await response.json();
+};
+
+export { fetchAllHouses, fetchHousesAPI, fetchHouseAPI };
