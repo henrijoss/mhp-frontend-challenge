@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Game of Thrones";
+  src: url("./../fonts/got/GameofThrones.eot");
+  src: local("Game of Thrones"), local("GameofThrones"),
+    url("./../fonts/got/GameofThrones.eot?#iefix") format("embedded-opentype"),
+    url("./../fonts/got/GameofThrones.woff2") format("woff2"),
+    url("./../fonts/got/GameofThrones.woff") format("woff"),
+    url("./../fonts/got/GameofThrones.ttf") format("truetype"),
+    url("./../fonts/got/GameofThrones.svg#GameofThrones") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
