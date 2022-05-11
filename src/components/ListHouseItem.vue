@@ -1,6 +1,8 @@
 <template>
-  <div v-for="house in houses" :key="house.url" class="list-house">
-    <HouseItem :house="house" />
+  <div class="houses-list">
+    <div v-for="house in houses" :key="house.url" class="house">
+      <HouseItem :house="house" />
+    </div>
   </div>
 </template>
 
