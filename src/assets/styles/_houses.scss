@@ -1,0 +1,76 @@
+.container-bg-img {
+  position: relative;
+  &:after {
+    content: "";
+    background-image: url("~@/assets/img/got_bg.jpg");
+    background-size: cover;
+    background-position: center bottom;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    position: absolute;
+    filter: blur(7px) opacity(0.6);
+  }
+}
+
+.houses-list {
+  display: flex;
+  flex-direction: column;
+  @include lg {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .house {
+    position: relative;
+    margin: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    flex: 1 0 32%;
+    @include lg {
+      flex: 0 0 32%;
+    }
+    .house-link {
+      padding: 1.5rem;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $primary-text-color;
+      }
+      h3 {
+        color: $secondary-color;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &:after {
+      content: "";
+      background: $primary-color-transparent;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      backdrop-filter: blur(30px);
+    }
+  }
+}
+
+.houses-pagination {
+  text-align: center;
+  button:first-child {
+    border-top-left-radius: $button-border-radius;
+    border-bottom-left-radius: $button-border-radius;
+  }
+  button:last-child {
+    border-top-right-radius: $button-border-radius;
+    border-bottom-right-radius: $button-border-radius;
+  }
+}

@@ -1,0 +1,48 @@
+$primary-bg-color: #090a18;
+
+$primary-color: #4a5463;
+$primary-color-transparent: rgba($primary-color, 0.7);
+$secondary-color: #f5986c;
+
+$primary-text-color: #c7c9d5;
+$secondary-text-color: #090a18;
+$tertiary-text-color: #373739;
+
+$button-border-radius: 50px;
+
+$disabled: #dddddd;
+
+/* Breakpoints */
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+// Tablets and small desktops
+$screen-lg-min: 992px;
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+/* Font sizes */
+$h1-font-sizes: (
+  null: 20px,
+  $screen-sm-min: 25px,
+  $screen-md-min: 25px,
+  $screen-lg-min: 30px,
+  $screen-xl-min: 35px,
+);
+
+$h2-font-sizes: (
+  null: 15px,
+  $screen-sm-min: 20px,
+  $screen-md-min: 20px,
+  $screen-lg-min: 20px,
+  $screen-xl-min: 20px,
+);
+
+$h3-font-sizes: (
+  null: 10px,
+  $screen-sm-min: 10px,
+  $screen-md-min: 10px,
+  $screen-lg-min: 13px,
+  $screen-xl-min: 13px,
+);

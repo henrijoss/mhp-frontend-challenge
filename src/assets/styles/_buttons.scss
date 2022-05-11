@@ -1,0 +1,32 @@
+.btn {
+  padding: 0;
+  border: none;
+  background: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+button:disabled,
+button[disabled] {
+  background-color: $disabled;
+  pointer-events: none;
+  .icon {
+    background-color: $disabled;
+  }
+}
+
+.btn-pagination {
+  background-color: $primary-color-transparent;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  &:hover .icon {
+    background-color: $secondary-color;
+  }
+  &:disabled {
+    background-color: lighten($primary-color-transparent, 20%);
+    .icon {
+      background-color: $primary-color-transparent;
+    }
+  }
+}
