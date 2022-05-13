@@ -1,0 +1,22 @@
+$percent: 1%;
+@for $i from 1 through 100 {
+  .skeleton:nth-of-type(#{$i}) {
+    animation: fade ease-in-out 2s infinite;
+    transition-delay: random() + s;
+    animation-delay: random() + s;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
