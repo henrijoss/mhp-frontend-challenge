@@ -1,8 +1,15 @@
 .icon {
   width: 2rem;
   height: 2rem;
-  display: block;
+  display: inline-block;
   mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.icon-large {
+  width: 7rem;
+  height: 8rem;
+  mask-size: 7rem;
 }
 
 .icon-light {
@@ -25,4 +32,12 @@
 
 .icon-double-arrow-left {
   mask-image: url("~@/assets/icons/double_arrow_left.svg");
+}
+
+.icon-explore {
+  mask-image: url("~@/assets/icons/explore.svg");
+}
+
+.icon-coat-of-arms {
+  mask-image: url("~@/assets/icons/coat_of_arms.svg");
 }
