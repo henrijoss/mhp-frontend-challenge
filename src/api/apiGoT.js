@@ -1,61 +1,47 @@
-import { storeGoT } from "@/store/store.js";
-
 const GOT_API_URL = "https://www.anapioficeandfire.com/api";
 const DEFAULT_PAGE_SIZE = 9;
-const MAX_PAGE_SIZE = 50; // defined by the API
 
-const fetchAllHouses = async (pageSize = MAX_PAGE_SIZE) => {
-  console.log(pageSize);
+const DEFAULT_HEADERS = {
+  "Content-Type": "application/json",
+  Accept: "application/vnd.anapioficeandfire+json; version=1",
 };
 
 /**
- * Fetch houses with given page and pageSize
+ * Fetch array of resources with given page from API
  * @public
  *
- * @param {Number} page – the page to be fetched
- * @param {Number} pageSize – amount of items on one page
+ * @param {String} type the resource type
+ * @param {Number} page the page to be fetched
+ * @returns {Promise<Response>} the returned response
  */
-const fetchHousesAPI = async (page = 1, pageSize = DEFAULT_PAGE_SIZE) => {
-  let response = await fetch(
-    `${GOT_API_URL}/houses?page=${page}&pageSize=${pageSize}`
-  );
-  setPageAmountOnPageSizeChange(response.headers, pageSize);
-  let houses = await response.json();
-  storeGoT.updateHouses(houses);
+const fetchResourcePage = async (type, page) => {
+  let url = `${GOT_API_URL}/${type}?page=${page}&pageSize=${DEFAULT_PAGE_SIZE}`;
+
+  let response = await fetch(url, {
+    headers: {
+      ...DEFAULT_HEADERS,
+    },
+  });
+
+  // TODO: CHeck status?
+  return response;
 };
 
 /**
- * Check if pageSize is set or changed and set pageAmount accordingly
- * @private
+ * Fetch single resource with given index
+ * @public
  *
- * @param {Headers} headers – http headers from api response
- * @param {Number} pageSize – amount of items on one page
+ * @param {String} type the resource type
+ * @param {Number} index the index to be fetched
+ * @returns {Promise<Response>} the returned response
  */
-const setPageAmountOnPageSizeChange = (headers, pageSize) => {
-  if (!storeGoT.currentPageSize || storeGoT.currentPageSize != pageSize) {
-    storeGoT.pageAmount = Number(parsePageAmount(headers));
-    storeGoT.currentPageSize = pageSize;
-  }
+const fetchResourceIndex = async (type, index) => {
+  let response = await fetch(`${GOT_API_URL}/${type}/${index}`, {
+    headers: {
+      ...DEFAULT_HEADERS,
+    },
+  });
+  return response;
 };
 
-/**
- * Parse amount of pages from link with rel="last" in headers
- * @private
- *
- * @param {Headers} headers – http headers from api response
- */
-const parsePageAmount = (headers) => {
-  return headers
-    .get("link")
-    .split(",")
-    .filter((l) => l.includes('rel="last"'))[0]
-    .match(/page=(\d*)/)[1];
-};
-
-const fetchHouseAPI = async (id) => {
-  console.log("test");
-  let response = await fetch(`${GOT_API_URL}/houses/${id}`);
-  return await response.json();
-};
-
-export { fetchAllHouses, fetchHousesAPI, fetchHouseAPI };
+export { fetchResourcePage, fetchResourceIndex };
