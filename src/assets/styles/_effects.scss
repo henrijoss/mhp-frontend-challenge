@@ -1,3 +1,22 @@
+/* Additional overlay effects (not written by me) */
+/* In order to enable add following html to the App.vue template and import this file to the css */
+/* <div class="overlay-effects">
+    <div v-for="index in 200" :key="index" class="snow"></div>
+    <div id="foglayer_01" class="fog">
+      <div class="image01"></div>
+      <div class="image02"></div>
+    </div>
+    <div id="foglayer_02" class="fog">
+      <div class="image01"></div>
+      <div class="image02"></div>
+    </div>
+    <div id="foglayer_03" class="fog">
+      <div class="image01"></div>
+      <div class="image02"></div>
+    </div>
+  </div> */
+/* Not optimised yet */
+
 @function random_range($min, $max) {
   $rand: random();
   $random_range: $min + floor($rand * (($max - $min) + 1));
@@ -19,7 +38,7 @@
     $random-x-end: $random-x + $random-offset;
     $random-x-end-yoyo: $random-x + ($random-offset / 2);
     $random-yoyo-time: random_range(30000, 80000) / 100000;
-    $random-yoyo-y: $random-yoyo-time * 100vh * 3;
+    $random-yoyo-y: $random-yoyo-time * 100vh;
     $random-scale: random(10000) * 0.00004;
     $fall-duration: random_range(10, 30) * 1s;
     $fall-delay: random(30) * -1s;
@@ -54,8 +73,10 @@
 #foglayer_02,
 #foglayer_03 {
   height: 100%;
-  position: fixed;
+  position: absolute;
   width: 200%;
+  z-index: -1;
+  pointer-events: none;
 }
 #foglayer_01 .image01,
 #foglayer_01 .image02,
@@ -95,4 +116,81 @@
 #foglayer_03 .image02 {
   background: url("~@/assets/img/fog/fog1.png") center center/cover no-repeat
     transparent;
+}
+
+@keyframes foglayer_01_opacity {
+  0% {
+    opacity: 0.1;
+  }
+  22% {
+    opacity: 0.5;
+  }
+  40% {
+    opacity: 0.28;
+  }
+  58% {
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.16;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes foglayer_02_opacity {
+  0% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes foglayer_03_opacity {
+  0% {
+    opacity: 0.8;
+  }
+  27% {
+    opacity: 0.2;
+  }
+  52% {
+    opacity: 0.6;
+  }
+  68% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes foglayer_moveme {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 767px) {
+  #foglayer_01 .image01,
+  #foglayer_01 .image02,
+  #foglayer_02 .image01,
+  #foglayer_02 .image02,
+  #foglayer_03 .image01,
+  #foglayer_03 .image02 {
+    width: 100%;
+  }
 }
