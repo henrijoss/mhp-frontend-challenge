@@ -21,6 +21,15 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, SavedPosition) {
+    if (to.hash) {
+      document.getElementById(to.hash.substring(1)).scrollIntoView();
+    } else if (SavedPosition) {
+      return SavedPosition;
+    } else {
+      document.getElementById("app").scrollIntoView();
+    }
+  },
 });
 
 export default router;
