@@ -1,6 +1,6 @@
 <template>
   <div class="container-bg-img bg-map vh-100">
-    <router-link :to="{ name: 'home' }">
+    <router-link :to="{ name: 'home', hash: navigateBack }">
       <BaseButton
         :button-text="'Back'"
         :button-class="'btn-primary'"
@@ -63,7 +63,12 @@ export default {
       currentHouse.value = {};
     });
 
-    return { house: currentHouse, error, houseDetails };
+    return {
+      house: currentHouse,
+      error,
+      houseDetails,
+      navigateBack: route.params.navigateBack,
+    };
   },
 };
 </script>
