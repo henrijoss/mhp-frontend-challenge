@@ -10,44 +10,37 @@ const loading = ref(false);
 const error = ref(null);
 
 const useHouses = () => {
-  const setHouses = async (pageIndex, response) => {
-    // initial set of page amount if not present
-    if (!pageAmount.value) {
-      pageAmount.value = parseHeaderLinks(response.headers).last.page;
-    }
-
-    let resourceData = await response.json();
-
-    // update currentPage
-    currentPage.value = pageIndex;
-
-    // add id to every house and save in store
-    resourceData.forEach((r) => {
-      r.id = r.url.match(/\d+/)[0];
-    });
-
-    houses.value[pageIndex - 1] = resourceData;
-  };
-
   const loadHouses = async (pageIndex = currentPage.value) => {
-    console.log(houses.value);
-    if (!houses.value[pageIndex - 1]) {
+    if (!getHouses(pageIndex)) {
       try {
         loading.value = true;
         let response = await fetchResourcePage("houses", pageIndex);
-        await setHouses(pageIndex, response);
-        loading.value = false;
+        let houses = await response.json();
+        setPageAmount(response.headers);
+        setHouses(pageIndex, houses);
         if (!response.ok) {
-          throw new Error("Service unavailable");
+          throw new Error("Failed to load houses data");
         }
       } catch (e) {
-        loading.value = false;
         error.value = e.message;
+      } finally {
+        loading.value = false;
       }
-    } else {
-      // update currentPage
-      console.log("bereits da");
-      currentPage.value = pageIndex;
+    }
+    currentPage.value = pageIndex;
+  };
+
+  const setHouses = async (pageIndex, data) => {
+    // parse id and set as property
+    data.forEach((r) => {
+      r.id = r.url.match(/\d+/)[0];
+    });
+    houses.value[pageIndex - 1] = data;
+  };
+
+  const setPageAmount = (headers) => {
+    if (!pageAmount.value) {
+      pageAmount.value = parseHeaderLinks(headers).last.page;
     }
   };
 
@@ -55,24 +48,19 @@ const useHouses = () => {
     return houses.value[pageIndex - 1];
   };
 
-  const getHouse = (houseId) => {
-    return houses.value.forEach((h) => h.find((house) => house.id == houseId));
-  };
-
   const loadHouse = async (houseId) => {
-    if (!getHouse(houseId)) {
-      try {
-        loading.value = true;
-        let response = await fetchResourceIndex("houses", houseId);
-        currentHouse.value = await response.json();
-        if (!response.ok) {
-          throw new Error("Service unavailable");
-        }
-        loading.value = false;
-      } catch (e) {
-        loading.value = false;
-        error.value = e.message;
+    try {
+      loading.value = true;
+      let response = await fetchResourceIndex("houses", houseId);
+      currentHouse.value = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to load house data");
       }
+    } catch (e) {
+      error.value = e.message;
+      console.error(e.message);
+    } finally {
+      loading.value = false;
     }
   };
 
@@ -83,7 +71,6 @@ const useHouses = () => {
     pageAmount,
     currentHouse,
     getHouses,
-    getHouse,
     loadHouses,
     loadHouse,
   };
