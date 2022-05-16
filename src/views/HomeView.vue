@@ -1,7 +1,7 @@
 <template>
   <FeaturedHouses :houses="featuredHouses" />
   <div class="container-bg-img bg-throne">
-    <article class="container houses-container">
+    <article class="container houses-container" id="all-houses">
       <section>
         <Transition name="fade" appear>
           <h1>All Houses</h1>
