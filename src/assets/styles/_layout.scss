@@ -1,10 +1,16 @@
 .container {
   max-width: $screen-xl-min;
   margin: auto;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .vh-100 {
   min-height: 100vh;
+}
+
+.pb-none {
+  padding-bottom: 0;
 }

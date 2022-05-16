@@ -5,6 +5,9 @@
 @import "icons.scss";
 @import "buttons.scss";
 @import "animations.scss";
+@import "effects.scss";
+@import "header.scss";
+@import "footer.scss";
 @import "houses.scss";
 
 * {
@@ -12,16 +15,18 @@
   font-family: "Game of Thrones", Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
   word-spacing: 3px;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
-html {
-  display: block;
+html,
+body {
+  overflow-x: hidden;
 }
 
 body {
   min-width: 320px;
-  background-color: $primary-bg-color;
+  height: 100vh;
+  background-color: $primary-color;
   margin: 0;
 }
 
@@ -31,12 +36,28 @@ h1 {
   position: relative;
   text-align: center;
   font-weight: bold;
-  hr {
-    display: inline-block;
-    width: 17%;
-    border-top: 3px solid $primary-text-color;
-    border-bottom: 3px solid $primary-color;
+  display: table;
+  margin: 0 auto;
+  padding: 2rem 0;
+  @include sm {
+    &:before {
+      @include line(left);
+    }
+    &:after {
+      @include line(right);
+    }
   }
+}
+
+.banner-heading {
+  background: $primary-color;
+  background: linear-gradient(
+    180deg,
+    rgba($primary-color, 0) 0%,
+    rgba($primary-color, 1) 40%,
+    rgba($primary-color, 1) 60%,
+    rgba($primary-color, 0) 100%
+  );
 }
 
 h2 {
@@ -51,6 +72,34 @@ h3 {
   font-weight: 100;
 }
 
+.subheading {
+  text-align: center;
+  margin-top: -2rem;
+}
+
+p {
+  @include font-size($p-font-sizes);
+  color: $primary-text-color;
+}
+
 a {
   text-decoration: none;
+}
+
+.primary-color {
+  color: $primary-color;
+}
+
+.secondary-color {
+  color: $secondary-color;
+}
+
+.tertiary-color {
+  color: $tertiary-color;
+}
+
+.error {
+  color: $error;
+  width: 100%;
+  text-align: center;
 }

@@ -27,61 +27,154 @@
 .houses-list {
   display: flex;
   flex-direction: column;
+  min-height: 33rem;
   @include lg {
     flex-direction: row;
     flex-wrap: wrap;
   }
   .house {
     position: relative;
-    margin: 0.5rem;
     display: flex;
     align-items: flex-start;
-    min-height: 5rem;
-    flex: 1 0 32%;
+    height: 5rem;
+    margin: 0.5rem;
+    flex: 0 0 calc(33% - 1rem);
     @include lg {
-      flex: 0 0 32%;
-      min-height: 10rem;
+      flex: 0 0 calc(33% - 1rem);
+      height: 10rem;
     }
     .house-link {
+      position: relative;
       padding: 1.5rem;
       width: 100%;
       height: 100%;
       z-index: 1;
+      overflow: hidden;
       h2 {
         margin-top: 0;
         margin-bottom: 0;
         color: $primary-text-color;
       }
       h3 {
-        color: $secondary-color;
+        color: $tertiary-color;
+        font-weight: bold;
       }
       &:hover {
         cursor: pointer;
+        .house-hover {
+          transform: translate(-12rem, 0);
+        }
       }
     }
     &:after {
       content: "";
-      background: $primary-color-transparent;
+      background: $secondary-color-transparent;
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
       z-index: 0;
-      backdrop-filter: blur(30px);
+      box-shadow: 2px 3px 20px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(0, 0, 0, 0.7) inset;
+      backdrop-filter: blur(30px) url(#weathered-overlay);
+    }
+    .house-hover {
+      background: $tertiary-color;
+      position: absolute;
+      width: 10rem;
+      height: 2rem;
+      bottom: 0.5rem;
+      right: -12rem;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      transition: transform 0.5s ease-out;
+      p {
+        margin-left: 1rem;
+        color: $secondary-text-color;
+      }
+      &:before {
+        @include triangle(
+          $tertiary-color,
+          1rem 1rem 1rem 0,
+          1.5rem 1.5rem 1.5rem 0
+        );
+        top: 0;
+        left: -1rem;
+        @include md {
+          left: -1.5rem;
+        }
+      }
+      @include md {
+        height: 3rem;
+      }
+      @include lg {
+        right: -12rem;
+      }
     }
   }
 }
 
 .houses-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination {
   text-align: center;
+  margin: 2rem 0;
+  position: relative;
+  width: 16rem;
+  filter: url(#weathered-overlay-light);
+  .banner {
+    width: 3rem;
+    height: 3rem;
+    background-color: $tertiary-color;
+    position: absolute;
+    z-index: 2;
+    &:first-child {
+      bottom: -0.5rem;
+      left: 1rem;
+      border-bottom-right-radius: 5px;
+      &:after {
+        @include triangle($tertiary-color, 0rem 2rem 2rem 0, 0rem 2rem 2rem 0);
+        left: -2rem;
+        top: 0rem;
+      }
+      &:before {
+        @include triangle($tertiary-color, 2rem 2rem 0rem 0, 2rem 2rem 0rem 0);
+        left: -2rem;
+        bottom: 0rem;
+      }
+    }
+    &:last-child {
+      bottom: -0.5rem;
+      right: 0.5rem;
+      border-bottom-left-radius: 5px;
+      &:after {
+        @include triangle($tertiary-color, 2rem 2rem 0rem 0, 2rem 2rem 0rem 0);
+        transform: rotate(180deg);
+        right: -2rem;
+        top: 0rem;
+      }
+      &:before {
+        @include triangle($tertiary-color, 0rem 2rem 2rem 0, 0rem 2rem 2rem 0);
+        transform: rotate(180deg);
+        right: -2rem;
+        bottom: 0rem;
+      }
+    }
+  }
   button:first-child {
-    border-top-left-radius: $button-border-radius;
-    border-bottom-left-radius: $button-border-radius;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: -6px 2px 9px -4px rgba(0, 0, 0, 0.5);
   }
   button:last-child {
-    border-top-right-radius: $button-border-radius;
-    border-bottom-right-radius: $button-border-radius;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 6px 2px 9px -4px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -99,4 +192,80 @@
   align-items: center;
   width: 24rem;
   text-align: center;
+}
+
+.house-weapons-container {
+  .house-weapon {
+    background-color: $secondary-color;
+    padding: 1rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    span {
+      padding-top: 1rem;
+      color: $primary-text-color;
+    }
+  }
+}
+
+.house-detail {
+  text-align: center;
+  margin: 1rem;
+  h2,
+  p {
+    margin: 0;
+  }
+}
+
+.houses-featured-container {
+  .houses-featured {
+    display: flex;
+    height: 80vh;
+    min-height: 50rem;
+    flex-direction: column;
+    @include lg {
+      flex-direction: row;
+    }
+    .house-featured {
+      flex: 1;
+      margin: 0.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      img {
+        width: 20%;
+        @include lg {
+          width: 50%;
+        }
+      }
+      h2 {
+        display: none;
+        position: absolute;
+      }
+      &:before {
+        content: "";
+        background-size: cover;
+        position: absolute;
+        width: 107%;
+        height: 105%;
+        position: absolute;
+        box-shadow: 2px 3px 20px rgba(0, 0, 0, 0.7),
+          0 0 60px rgba(0, 0, 0, 0.7) inset;
+        filter: url(#weathered-overlay);
+      }
+      &:hover {
+        &:before {
+          background-color: rgba(0, 0, 0, 0.5);
+          animation: banner-hover 1s;
+        }
+        h2 {
+          display: block;
+        }
+      }
+    }
+  }
 }

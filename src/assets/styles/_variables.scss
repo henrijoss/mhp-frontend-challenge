@@ -1,15 +1,15 @@
-$primary-bg-color: #090a18;
-
-$primary-color: #4a5463;
-$primary-color-transparent: rgba($primary-color, 0.7);
-$secondary-color: #f5986c;
+/* Colors */
+$primary-color: #0c0e14;
+$secondary-color: #43505c;
+$secondary-color-transparent: rgba($secondary-color, 0.7);
+$tertiary-color: rgb(172, 131, 75);
+$quaternary-color: #9a362d;
 
 $primary-text-color: #c7c9d5;
-$secondary-text-color: #090a18;
+$secondary-text-color: #0c0e14;
 $tertiary-text-color: #373739;
 
-$button-border-radius: 50px;
-
+$error: #b00020;
 $disabled: #dddddd;
 
 /* Breakpoints */
@@ -23,6 +23,14 @@ $screen-lg-min: 992px;
 $screen-xl-min: 1200px;
 
 /* Font sizes */
+$p-font-sizes: (
+  null: 12px,
+  $screen-sm-min: 12px,
+  $screen-md-min: 12px,
+  $screen-lg-min: 12px,
+  $screen-xl-min: 12px,
+);
+
 $h1-font-sizes: (
   null: 20px,
   $screen-sm-min: 25px,

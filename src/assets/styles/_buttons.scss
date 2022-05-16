@@ -4,6 +4,7 @@
   background: none;
   display: flex;
   align-items: center;
+  z-index: 9;
   &:hover {
     cursor: pointer;
   }
@@ -22,46 +23,72 @@ button[disabled] {
 }
 
 .btn-primary {
-  background-color: $primary-color;
-  color: white;
+  background-color: $tertiary-color;
+  color: $secondary-text-color;
   padding: 0.25rem;
   padding-right: 1.75rem;
   position: absolute;
-  top: 5rem;
+  left: -2rem;
+  width: 7rem;
+  top: 8rem;
   height: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  transition: transform 0.5s ease-out;
+  .icon {
+    background-color: $primary-color;
+  }
+  span {
+    display: none;
+  }
   &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 1rem 1rem 1rem 0;
-    border-color: transparent $primary-bg-color transparent transparent;
-    @include md {
-      border-width: 2rem 2rem 2rem 0;
-    }
+    @include triangle($tertiary-color, 1rem 1rem 0rem 0, 2rem 2rem 0rem 0);
+    transform: rotate(180deg);
+    right: -1rem;
+    top: 0rem;
+  }
+  &:before {
+    @include triangle($tertiary-color, 0rem 1rem 1rem 0, 0rem 2rem 2rem 0);
+    transform: rotate(180deg);
+    right: -1rem;
+    bottom: 0rem;
+  }
+  &:hover {
+    transform: translate(2rem, 0);
   }
   @include md {
     padding: 0.5rem;
-    padding-right: 3.5rem;
-    height: 4rem;
+    padding-right: 1.5rem;
+    padding-left: 3rem;
+    height: 3rem;
+    width: 10rem;
+    span {
+      display: block;
+    }
+    &:before,
+    &:after {
+      right: -2rem;
+    }
   }
 }
 
 .btn-pagination {
   display: inline-flex;
-  background-color: $primary-color-transparent;
+  background-color: $tertiary-color;
   padding: 0.5rem;
-  margin-top: 2rem;
+  height: 3rem;
+  z-index: 3;
+  position: relative;
+  .icon {
+    background-color: black;
+  }
   &:hover .icon {
-    background-color: $secondary-color;
+    background-color: white;
   }
   &:disabled {
-    background-color: lighten($primary-color-transparent, 20%);
+    background-color: $tertiary-color;
     .icon {
-      background-color: $primary-color-transparent;
+      background-color: $secondary-color-transparent;
     }
   }
 }

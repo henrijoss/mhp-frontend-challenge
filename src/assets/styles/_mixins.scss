@@ -27,7 +27,7 @@
   }
 }
 
-// Generates font sizes
+/* Generate font sizes */
 @mixin font-size($fs-map) {
   @each $fs-breakpoint, $fs-font-size in $fs-map {
     @if $fs-breakpoint == null {
@@ -38,4 +38,27 @@
       }
     }
   }
+}
+
+@mixin triangle($color, $border, $border-md) {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: $border;
+  border-color: transparent $color transparent transparent;
+  @include md {
+    border-width: $border-md;
+  }
+}
+
+@mixin line($side) {
+  content: "";
+  position: absolute;
+  width: 13rem;
+  #{$side}: -14rem;
+  top: 45%;
+  border-top: 3px solid $primary-text-color;
+  border-bottom: 3px solid $secondary-color;
 }

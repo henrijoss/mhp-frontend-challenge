@@ -16,6 +16,10 @@
   background-color: $primary-text-color;
 }
 
+.icon-arrow-down {
+  mask-image: url("~@/assets/icons/arrow_down.svg");
+}
+
 .icon-arrow-left {
   mask-image: url("~@/assets/icons/arrow_left.svg");
 }
@@ -40,4 +44,32 @@
 
 .icon-coat-of-arms {
   mask-image: url("~@/assets/icons/coat_of_arms.svg");
+}
+
+.icon-weapons {
+  mask-image: url("~@/assets/icons/weapons.png");
+}
+
+.icon-crown {
+  mask-image: url("~@/assets/icons/crown.png");
+}
+
+.icon-flag {
+  mask-image: url("~@/assets/icons/flag.svg");
+}
+
+.icon-cross {
+  mask-image: url("~@/assets/icons/cross.png");
+}
+
+.icon-heir {
+  mask-image: url("~@/assets/icons/heir.svg");
+}
+
+.icon-map {
+  mask-image: url("~@/assets/icons/map.svg");
+}
+
+.icon-titles {
+  mask-image: url("~@/assets/icons/titles.svg");
 }

@@ -1,0 +1,17 @@
+footer {
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: $secondary-color;
+  align-items: flex-start;
+  p {
+    padding: 0;
+  }
+  @include lg {
+    height: 5rem;
+    flex-direction: row;
+    align-items: center;
+  }
+}
