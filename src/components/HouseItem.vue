@@ -4,6 +4,7 @@
       name: 'house-detail',
       params: {
         id: house.id,
+        navigateBack: '#all-houses',
       },
     }"
     class="house-link"

@@ -9,6 +9,7 @@
           name: 'house-detail',
           params: {
             id: house.id,
+            navigateBack: '#featured-houses',
           },
         }"
         v-for="house in houses"
