@@ -16,14 +16,11 @@ const DEFAULT_HEADERS = {
  */
 const fetchResourcePage = async (type, page) => {
   let url = `${GOT_API_URL}/${type}?page=${page}&pageSize=${DEFAULT_PAGE_SIZE}`;
-
   let response = await fetch(url, {
     headers: {
       ...DEFAULT_HEADERS,
     },
   });
-
-  // TODO: CHeck status?
   return response;
 };
 
