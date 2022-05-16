@@ -1,17 +1,24 @@
 import { ref } from "vue";
 import { fetchResourcePage, fetchResourceIndex } from "@/api/apiGoT";
 import parseHeaderLinks from "@/utils/parseHeaderLinks";
+import { setInLocalStorage, getFromLocalStorage } from "@/utils/localStorage";
 
 const houses = ref([]);
 const currentHouse = ref({});
 const currentPage = ref(1);
-const pageAmount = ref(0);
+const pageAmount = ref(Number(localStorage.getItem("pageAmount")) || 0);
 const loading = ref(false);
 const error = ref(null);
 
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const EXPIRES_IN = ONE_DAY * 7;
+
 const useHouses = () => {
   const loadHouses = async (pageIndex = currentPage.value) => {
-    if (!getHouses(pageIndex)) {
+    if (
+      (!getHouses(pageIndex) && !getFromLocalStorage(pageIndex, EXPIRES_IN)) ||
+      !pageAmount.value
+    ) {
       try {
         loading.value = true;
         let response = await fetchResourcePage("houses", pageIndex);
@@ -32,19 +39,25 @@ const useHouses = () => {
 
   const setHouses = async (pageIndex, data) => {
     // parse id and set as property
-    data.forEach((r) => {
-      r.id = r.url.match(/\d+/)[0];
+    data.forEach((house) => {
+      house.id = house.url.match(/\d+/)[0];
     });
     houses.value[pageIndex - 1] = data;
+    setInLocalStorage(pageIndex, data);
   };
 
   const setPageAmount = (headers) => {
     if (!pageAmount.value) {
-      pageAmount.value = parseHeaderLinks(headers).last.page;
+      let amount = parseHeaderLinks(headers).last.page;
+      pageAmount.value = amount;
+      setInLocalStorage("pageAmount", amount);
     }
   };
 
   const getHouses = (pageIndex = currentPage.value) => {
+    if (!houses.value[pageIndex - 1]) {
+      houses.value[pageIndex - 1] = getFromLocalStorage(pageIndex, EXPIRES_IN);
+    }
     return houses.value[pageIndex - 1];
   };
 
@@ -58,7 +71,6 @@ const useHouses = () => {
       }
     } catch (e) {
       error.value = e.message;
-      console.error(e.message);
     } finally {
       loading.value = false;
     }
