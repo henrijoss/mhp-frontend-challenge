@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{
-      name: 'HouseDetail',
+      name: 'house-detail',
       params: {
         id: house.id,
       },
@@ -10,6 +10,7 @@
   >
     <h2>{{ house.name }}</h2>
     <h3>{{ house.region }}</h3>
+    <div class="house-hover"><p>Learn more</p></div>
   </router-link>
 </template>
 
