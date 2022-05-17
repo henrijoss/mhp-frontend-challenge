@@ -187,6 +187,26 @@
   }
 }
 
+.house-detail-skeleton {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .skeleton-header {
+    background-color: transparentize($secondary-color-transparent, 0.5);
+    margin: 3rem;
+  }
+  div .skeleton {
+    margin-bottom: 0.5rem;
+    background-color: transparentize($secondary-color-transparent, 0.5);
+  }
+}
+
 .houses-featured-container {
   .houses-featured {
     display: flex;
