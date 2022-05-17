@@ -1,7 +1,14 @@
 import { ref } from "vue";
-import { fetchResourcePage, fetchResourceIndex } from "@/api/apiGoT";
+import {
+  fetchResourcePage,
+  fetchResourceIndex,
+  fetchResourceHeaders,
+} from "@/api/apiGoT";
 import parseHeaderLinks from "@/utils/parseHeaderLinks";
 import { setInLocalStorage, getFromLocalStorage } from "@/utils/localStorage";
+
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const EXPIRES_IN = ONE_DAY * 7;
 
 const houses = ref([]);
 const currentHouse = ref({});
@@ -10,31 +17,42 @@ const pageAmount = ref(Number(localStorage.getItem("pageAmount")) || 0);
 const loading = ref(false);
 const error = ref(null);
 
-const ONE_DAY = 24 * 60 * 60 * 1000;
-const EXPIRES_IN = ONE_DAY * 7;
-
 const useHouses = () => {
   const loadHouses = async (pageIndex = currentPage.value) => {
-    if (
-      (!getHouses(pageIndex) && !getFromLocalStorage(pageIndex, EXPIRES_IN)) ||
-      !pageAmount.value
-    ) {
-      try {
-        loading.value = true;
-        let response = await fetchResourcePage("houses", pageIndex);
-        let houses = await response.json();
-        setPageAmount(response.headers);
-        setHouses(pageIndex, houses);
-        if (!response.ok) {
-          throw new Error("Failed to load houses data");
-        }
-      } catch (e) {
-        error.value = e.message;
-      } finally {
-        loading.value = false;
-      }
+    houses.value[pageIndex - 1] = getHouses(pageIndex);
+    if (!houses.value[pageIndex - 1]) {
+      await fetchHouses(pageIndex);
+    }
+    if (!pageAmount.value) {
+      await fetchPageAmount();
     }
     currentPage.value = pageIndex;
+  };
+
+  const fetchHouses = async (pageIndex) => {
+    try {
+      loading.value = true;
+      let response = await fetchResourcePage("houses", pageIndex);
+      let houses = await response.json();
+      setPageAmount(response.headers);
+      setHouses(pageIndex, houses);
+      if (!response.ok) {
+        throw new Error("Failed to load houses data");
+      }
+    } catch (e) {
+      error.value = e.message;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const fetchPageAmount = async () => {
+    try {
+      let response = await fetchResourceHeaders("houses");
+      setPageAmount(response.headers);
+    } catch (e) {
+      error.value = e.message;
+    }
   };
 
   const setHouses = async (pageIndex, data) => {
@@ -55,13 +73,12 @@ const useHouses = () => {
   };
 
   const getHouses = (pageIndex = currentPage.value) => {
-    if (!houses.value[pageIndex - 1]) {
-      houses.value[pageIndex - 1] = getFromLocalStorage(pageIndex, EXPIRES_IN);
-    }
-    return houses.value[pageIndex - 1];
+    return (
+      houses.value[pageIndex - 1] || getFromLocalStorage(pageIndex, EXPIRES_IN)
+    );
   };
 
-  const loadHouse = async (houseId) => {
+  const fetchHouse = async (houseId) => {
     try {
       loading.value = true;
       let response = await fetchResourceIndex("houses", houseId);
@@ -83,8 +100,8 @@ const useHouses = () => {
     pageAmount,
     currentHouse,
     getHouses,
+    fetchHouse,
     loadHouses,
-    loadHouse,
   };
 };
 
