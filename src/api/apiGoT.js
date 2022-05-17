@@ -41,4 +41,22 @@ const fetchResourceIndex = async (type, index) => {
   return response;
 };
 
-export { fetchResourcePage, fetchResourceIndex };
+/**
+ * Fetch only headers
+ * @public
+ *
+ * @param {String} type the resource type
+ * @param {Number} page the page to be fetched
+ * @returns {Promise<Response>} the returned response
+ */
+const fetchResourceHeaders = async (type, page = 1) => {
+  let response = await fetch(
+    `${GOT_API_URL}/${type}?page=${page}&pageSize=${DEFAULT_PAGE_SIZE}`,
+    {
+      method: "HEAD",
+    }
+  );
+  return response;
+};
+
+export { fetchResourcePage, fetchResourceIndex, fetchResourceHeaders };
