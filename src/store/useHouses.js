@@ -56,7 +56,6 @@ const useHouses = () => {
   };
 
   const setHouses = async (pageIndex, data) => {
-    // parse id and set as property
     data.forEach((house) => {
       house.id = house.url.match(/\d+/)[0];
     });
@@ -65,11 +64,9 @@ const useHouses = () => {
   };
 
   const setPageAmount = (headers) => {
-    if (!pageAmount.value) {
-      let amount = parseHeaderLinks(headers).last.page;
-      pageAmount.value = amount;
-      setInLocalStorage("pageAmount", amount);
-    }
+    let amount = parseHeaderLinks(headers).last.page;
+    pageAmount.value = amount;
+    setInLocalStorage("pageAmount", amount);
   };
 
   const getHouses = (pageIndex = currentPage.value) => {
