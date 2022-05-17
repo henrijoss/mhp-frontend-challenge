@@ -7,6 +7,7 @@
         navigateBack: '#all-houses',
       },
     }"
+    @click="currentHouse = house"
     class="house-link"
   >
     <h2>{{ house.name }}</h2>
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+import useHouses from "@/store/useHouses";
+
 export default {
   name: "HouseItem",
   props: {
@@ -23,6 +26,10 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  setup() {
+    const { currentHouse } = useHouses();
+    return { currentHouse };
   },
 };
 </script>
