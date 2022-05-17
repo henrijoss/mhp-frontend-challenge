@@ -21,11 +21,11 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  scrollBehavior(to, from, SavedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       document.getElementById(to.hash.substring(1)).scrollIntoView();
-    } else if (SavedPosition) {
-      return SavedPosition;
+    } else if (savedPosition) {
+      return savedPosition;
     } else {
       document.getElementById("app").scrollIntoView();
     }
