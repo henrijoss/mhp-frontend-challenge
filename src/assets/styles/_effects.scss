@@ -1,20 +1,5 @@
 /* Additional overlay effects (not written by me) */
 /* In order to enable add following html to the App.vue template and import this file to the css */
-/* <div class="overlay-effects">
-    <div v-for="index in 200" :key="index" class="snow"></div>
-    <div id="foglayer_01" class="fog">
-      <div class="image01"></div>
-      <div class="image02"></div>
-    </div>
-    <div id="foglayer_02" class="fog">
-      <div class="image01"></div>
-      <div class="image02"></div>
-    </div>
-    <div id="foglayer_03" class="fog">
-      <div class="image01"></div>
-      <div class="image02"></div>
-    </div>
-  </div> */
 /* Not optimised yet */
 
 @function random_range($min, $max) {
