@@ -200,10 +200,12 @@
   .skeleton-header {
     background-color: transparentize($secondary-color-transparent, 0.5);
     margin: 3rem;
+    border-radius: 10px;
   }
   div .skeleton {
     margin-bottom: 0.5rem;
     background-color: transparentize($secondary-color-transparent, 0.5);
+    border-radius: 10px;
   }
 }
 
