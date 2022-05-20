@@ -5,22 +5,17 @@ import {
   fetchResourceHeaders,
 } from "@/api/apiGoT";
 import parseHeaderLinks from "@/utils/parseHeaderLinks";
-import { setInLocalStorage, getFromLocalStorage } from "@/utils/localStorage";
-
-const ONE_DAY = 24 * 60 * 60 * 1000;
-const EXPIRES_IN = ONE_DAY * 7;
 
 const houses = ref([]);
 const currentHouse = ref({});
 const currentPage = ref(1);
-const pageAmount = ref(Number(localStorage.getItem("pageAmount")) || 0);
+const pageAmount = ref(0);
 const loading = ref(false);
 const error = ref(null);
 
 const useHouses = () => {
   const loadHouses = async (pageIndex = currentPage.value) => {
-    houses.value[pageIndex - 1] = getHouses(pageIndex);
-    if (!houses.value[pageIndex - 1]) {
+    if (!getHouses(pageIndex)) {
       await fetchHouses(pageIndex);
     }
     if (!pageAmount.value) {
@@ -60,19 +55,15 @@ const useHouses = () => {
       house.id = house.url.match(/\d+/)[0];
     });
     houses.value[pageIndex - 1] = data;
-    setInLocalStorage(pageIndex, data);
   };
 
   const setPageAmount = (headers) => {
     let amount = parseHeaderLinks(headers).last.page;
     pageAmount.value = amount;
-    setInLocalStorage("pageAmount", amount);
   };
 
   const getHouses = (pageIndex = currentPage.value) => {
-    return (
-      houses.value[pageIndex - 1] || getFromLocalStorage(pageIndex, EXPIRES_IN)
-    );
+    return houses.value[pageIndex - 1];
   };
 
   const fetchHouse = async (houseId) => {
